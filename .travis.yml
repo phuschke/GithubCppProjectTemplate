@@ -21,4 +21,4 @@ script:
   - docker exec build cmake --build /build
   - docker exec build cmake --build /build --target test
 after_success:
-    - ./scripts/upload_coverage.sh
+    - sh /scripts/upload_coverage.sh
