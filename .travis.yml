@@ -27,9 +27,10 @@ script:
     - docker exec build cmake -H/project -B/build
     - docker exec build cmake --build /build
     - docker exec build cmake --build /build --target test
-    - pwd
-    - ls -l
     - docker exec build lcov --directory /build --capture --output-file coverage.info
+    - docker exec build lcov --remove coverage.info '/usr/*' --output-file coverage.info
+    - docker exec build lcov --remove coverage.info 'test/catch.hpp' --output-file coverage.info
+    - docker exec build bash <(curl -s https://codecov.io/bash)
     - mkdir build
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ..
@@ -42,5 +43,3 @@ after_success:
   - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
   - lcov --remove coverage.info 'test/catch.hpp' --output-file coverage.info # filter out system
   - lcov --list coverage.info #debug info
-  # Uploading report to CodeCov
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
