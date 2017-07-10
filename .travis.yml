@@ -29,7 +29,7 @@ script:
     - docker exec build cmake --build /build --target test
     - pwd
     - ls -l
-    - docker exec build lcov --directory . --capture --output-file coverage.info
+    - docker exec build lcov --directory /build --capture --output-file coverage.info
     - mkdir build
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ..
