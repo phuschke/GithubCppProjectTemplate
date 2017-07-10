@@ -30,7 +30,6 @@ script:
     - docker exec build lcov --directory /build --capture --output-file coverage.info
     - docker exec build lcov --remove coverage.info '/usr/*' --output-file coverage.info
     - docker exec build lcov --remove coverage.info 'catch.hpp' --output-file coverage.info
-    - docker exec build bash <(curl -s https://codecov.io/bash)
     - mkdir build
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ..
