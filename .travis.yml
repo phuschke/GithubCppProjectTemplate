@@ -1,0 +1,23 @@
+language: cpp
+sudo: required
+
+services:
+    - docker
+dist: trusty
+compiler:
+    - clang
+    - gcc
+env:
+    - BUILD_TYPE=Release
+    - BUILD_TYPE=Debug
+before_install:    
+    - docker pull phuschke/githubcppprojecttemplate:v1
+    - docker run -itd --name build -v $(pwd):/project phuschke/githubcppprojecttemplate:v1
+#   ALTERNATIVE: we could also clone the repo instead of mounting it with -v $(pwd):/project
+#   - docker run -itd --name build phuschke/githubcppprojecttemplate:v1
+#   - docker exec build git clone https://github.com/phuschke/GithubCppProjectTemplate.git /project
+script:
+  - docker exec build cmake -H/project -B/build
+  - docker exec build cmake --build /build
+  - docker exec build cmake --build /build --target test
+    
