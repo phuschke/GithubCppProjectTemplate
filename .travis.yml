@@ -1,5 +1,5 @@
 language: cpp
-sudo: false
+sudo: required
 
 services:
     - docker
@@ -17,8 +17,10 @@ before_install:
 #   - docker run -itd --name build phuschke/githubcppprojecttemplate:v1
 #   - docker exec build git clone https://github.com/phuschke/GithubCppProjectTemplate.git /project
 script:
-  - docker exec build cmake -H/project -B/build
-  - docker exec build cmake --build /build
-  - docker exec build cmake --build /build --target test
+    - docker exec build cmake -H/project -B/build
+    - docker exec build cmake --build /build
+    - docker exec build cmake --build /build --target test
 after_success:
-    - ./scripts/upload_coverage.sh
+    - pwd
+    - cd scripts
+    - sh upload_coverage.sh
