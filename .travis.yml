@@ -27,6 +27,9 @@ script:
     - docker exec build cmake -H/project -B/build
     - docker exec build cmake --build /build
     - docker exec build cmake --build /build --target test
+    - docker exec build lcov --directory . --capture --output-file coverage.info
+    - docker exec build lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+    - docker exec build bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 after_success:
     # Creating report
   - cd ${TRAVIS_BUILD_DIR}
