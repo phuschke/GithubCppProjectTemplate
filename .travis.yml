@@ -4,12 +4,19 @@ sudo: required
 services:
     - docker
 dist: trusty
+
 compiler:
-    - clang
-    - gcc
+    - g++
 env:
-    - BUILD_TYPE=Release
     - BUILD_TYPE=Debug
+    
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - lcov
+            
 before_install:
     - docker pull phuschke/githubcppprojecttemplate:v1
     - docker run -itd --name build -v $(pwd):/project phuschke/githubcppprojecttemplate:v1
