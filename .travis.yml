@@ -8,17 +8,26 @@ dist: trusty
 compiler:
     - g++
 env:
-    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
-    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
-
+    global:
+    # http://docs.travis-ci.com/user/speeding-up-the-build/#Paralellizing-your-build-on-one-VM
+    - MAKE_CMD="make -j2"
+    # Build directory.
+    - BUILD_DIR="$TRAVIS_BUILD_DIR/build"
 jobs:
     include:
         - stage: gcc builds
           os: linux
           compiler: gcc-5
+          env:
+            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
         - stage: clang builds
           os: linux
           compiler: clang-4.0
+          env:
+            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
+    fast_finish: true
 
 addons:
     apt:
@@ -40,8 +49,8 @@ script:
     - docker exec build lcov --directory /build --capture --output-file coverage.info
     - docker exec build lcov --remove coverage.info '/usr/*' --output-file coverage.info
     - docker exec build lcov --remove coverage.info 'catch.hpp' --output-file coverage.info
-    - mkdir build
-    - cd build
+    - mkdir $BUILD_DIR
+    - cd $BUILD_DIR
     - cmake $CMAKE_FLAGS ..
     - make -j2
     - ctest
