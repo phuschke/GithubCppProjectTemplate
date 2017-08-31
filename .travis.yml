@@ -16,9 +16,9 @@ jobs:
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
     - compiler: g++
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
-    - compiler: clang
+    - compiler: clang++
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
-    - compiler: clang
+    - compiler: clang++
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
     - stage: lint
       env: CI_TARGET=lint
