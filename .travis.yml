@@ -1,5 +1,5 @@
 language: cpp
-sudo: false
+sudo: required
 dist: trusty
 
 os: linux
@@ -28,4 +28,4 @@ addons:
     sources: ubuntu-toolchain-r-test
     packages: lcov
 
-script: ci/script.sh
+script: sudo ci/script.sh
