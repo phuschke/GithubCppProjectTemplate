@@ -1,0 +1,4 @@
+[spacing]
+bears = SpaceConsistencyBear
+files = **.cpp
+use_spaces = true
