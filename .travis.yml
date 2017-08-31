@@ -2,31 +2,30 @@ language: cpp
 sudo: false
 dist: trusty
 
+os: linux
+
 env:
   global:
-    os: linux
+    - CI_TARGET=test
+    - BUILD_DIR="$TRAVIS_BUILD_DIR/build"
 
 jobs:
   include:
     - stage: build
       compiler: g++
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
-    - compiler: clang
+    - compiler: g++
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
     - compiler: clang
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
     - compiler: clang
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
-    - stage: lint2
+    - stage: lint
       env: CI_TARGET=lint
+
 addons:
   apt:
     sources: ubuntu-toolchain-r-test
     packages: lcov
 
-before_install:
-
-
 script: ci/script.sh
-
-after_success:
