@@ -2,6 +2,6 @@
 
 void HelloWorldPrinter::Print() const
 {
-	std::cout << "Hello world!" << std::endl;
+    std::cout << "Hello world!" << std::endl;
 }
 

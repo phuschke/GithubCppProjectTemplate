@@ -4,6 +4,6 @@
 
 int main()
 {
-	HelloWorldPrinter printer;
-	printer.Print();
+    HelloWorldPrinter printer;
+    printer.Print();
 }
