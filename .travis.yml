@@ -28,7 +28,9 @@ jobs:
 
 addons:
   apt:
-    sources: ubuntu-toolchain-r-test
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-4.0
     packages:
       - lcov
       - llvm-4.0-dev
