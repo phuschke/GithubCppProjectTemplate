@@ -1,27 +1,17 @@
+
 language: cpp
 sudo: false
-
-services:
-    - docker
 dist: trusty
 
-compiler:
-    - g++
-env:
-    global:
-    - MAKE_CMD="make -j2"
-    - BUILD_DIR="$TRAVIS_BUILD_DIR/build"
-    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
-    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
-    - CI_TARGET=test
 
 jobs:
     include:
         - stage: lint
           os: linux
           env: CI_TARGET=lint
-    fast_finish: true
-
+        - stage: lint2
+          os: linux
+          env: CI_TARGET=lint
 addons:
     apt:
         sources:
@@ -30,20 +20,20 @@ addons:
             - lcov
 
 before_install:
-    - docker pull phuschke/githubcppprojecttemplate:v1
-    - docker run -itd --name build -v $(pwd):/project phuschke/githubcppprojecttemplate:v1
+#    - docker pull phuschke/githubcppprojecttemplate:v1
+#    - docker run -itd --name build -v $(pwd):/project phuschke/githubcppprojecttemplate:v1
 #   ALTERNATIVE: we could also clone the repo instead of mounting it with -v $(pwd):/project
 #   - docker run -itd --name build phuschke/githubcppprojecttemplate:v1
 #   - docker exec build git clone https://github.com/phuschke/GithubCppProjectTemplate.git /project
 
-script: sudo ci/script.sh
+# script: ci/script.sh
 
 after_success:
-    # Creating report
-  - cd ${TRAVIS_BUILD_DIR}
-  - lcov --directory . --capture --output-file coverage.info # capture coverage info
-  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
-  - lcov --remove coverage.info 'test/catch.hpp' --output-file coverage.info # filter out system
-  - lcov --list coverage.info #debug info
-  # Uploading report to CodeCov
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+  #  # Creating report
+  #- cd ${TRAVIS_BUILD_DIR}
+  #- lcov --directory . --capture --output-file coverage.info # capture coverage info
+  #- lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+  #- lcov --remove coverage.info 'test/catch.hpp' --output-file coverage.info # filter out system
+  #- lcov --list coverage.info #debug info
+  ## Uploading report to CodeCov
+  #- bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
