@@ -21,6 +21,7 @@ jobs:
         - stage: lint
           os: linux
           env: CI_TARGET=lint
+    allow_failures:
     fast_finish: true
 
 addons:
