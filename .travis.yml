@@ -37,7 +37,7 @@ before_install:
 #   - docker run -itd --name build phuschke/githubcppprojecttemplate:v1
 #   - docker exec build git clone https://github.com/phuschke/GithubCppProjectTemplate.git /project
 
-script: ci/script.sh
+script: sudo ci/script.sh
 
 after_success:
     # Creating report

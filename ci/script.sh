@@ -3,4 +3,4 @@
 set -e
 set -o pipefail
 
-ci/run_${CI_TARGET}.sh
+sudo ci/run_${CI_TARGET}.sh
