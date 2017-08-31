@@ -2,4 +2,5 @@
 
 set -e
 
-sudo ci/run_${CI_TARGET}.sh
+echo ${PWD}
+#sudo ci/run_${CI_TARGET}.sh

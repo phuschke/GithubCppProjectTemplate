@@ -3,15 +3,23 @@ language: cpp
 sudo: false
 dist: trusty
 
+env:
+  global:
+    os: linux
 
 jobs:
     include:
-        - stage: lint
-          os: linux
-          env: CI_TARGET=lint
+        - stage: build
+          - compiler: g++
+          - env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
+          - compiler: clang
+          - env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
+          - compiler: clang
+          - env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
+          - compiler: clang
+          - env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
         - stage: lint2
-          os: linux
-          env: CI_TARGET=lint
+          - env: CI_TARGET=lint
 addons:
     apt:
         sources:
@@ -26,7 +34,7 @@ before_install:
 #   - docker run -itd --name build phuschke/githubcppprojecttemplate:v1
 #   - docker exec build git clone https://github.com/phuschke/GithubCppProjectTemplate.git /project
 
-# script: ci/script.sh
+script: ci/script.sh
 
 after_success:
   #  # Creating report
