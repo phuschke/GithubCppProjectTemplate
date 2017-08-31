@@ -7,7 +7,6 @@ dist: trusty
 
 compiler:
     - g++
-    - clang
 env:
     global:
     - MAKE_CMD="make -j2"
