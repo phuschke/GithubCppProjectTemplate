@@ -9,14 +9,23 @@ compiler:
     - g++
 env:
     - BUILD_TYPE=Debug
-    
+
+jobs:
+    include:
+        - stage: gcc builds
+          os: linux
+          compiler: gcc-5
+        - stage: clang builds
+          os: linux
+          compiler: clang-4.0
+      
 addons:
     apt:
         sources:
             - ubuntu-toolchain-r-test
         packages:
             - lcov
-            
+
 before_install:
     - docker pull phuschke/githubcppprojecttemplate:v1
     - docker run -itd --name build -v $(pwd):/project phuschke/githubcppprojecttemplate:v1
