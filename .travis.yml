@@ -22,10 +22,16 @@ jobs:
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
     - stage: lint
       env: CI_TARGET=lint
+  allow_failures:
+    - env: CI_TARGET=lint
+  fast_finish: true
 
 addons:
   apt:
     sources: ubuntu-toolchain-r-test
-    packages: lcov
+    packages:
+      - lcov
+      - llvm-4.0-dev
+      - clang-4.0
 
 script: sudo ci/script.sh
