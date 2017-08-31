@@ -14,8 +14,7 @@ jobs:
     - stage: build
       compiler: g++
       env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Release"
-    - compiler: g++
-      env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
+    - env: CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=Debug"
     - stage: lint
       env: CI_TARGET=lint
   allow_failures:
@@ -33,3 +32,8 @@ addons:
       - clang-4.0
 
 script: sudo ci/script.sh
+
+cache:
+  apt: true
+  directories:
+    - "$HOME/.cache/pip"
