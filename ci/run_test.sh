@@ -2,7 +2,6 @@
 #!/usr/bin/env bash
 
 set -e
-set -o pipefail
 
 docker exec build cmake -H/project -B/build
 docker exec build cmake --build /build
