@@ -8,7 +8,8 @@ dist: trusty
 compiler:
     - g++
 env:
-    - BUILD_TYPE=Debug
+    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
 
 jobs:
     include:
@@ -18,7 +19,7 @@ jobs:
         - stage: clang builds
           os: linux
           compiler: clang-4.0
-      
+
 addons:
     apt:
         sources:
@@ -41,7 +42,7 @@ script:
     - docker exec build lcov --remove coverage.info 'catch.hpp' --output-file coverage.info
     - mkdir build
     - cd build
-    - cmake -DCMAKE_BUILD_TYPE=Debug ..
+    - cmake $CMAKE_FLAGS ..
     - make -j2
     - ctest
 after_success:
