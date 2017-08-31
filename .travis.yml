@@ -14,19 +14,13 @@ env:
     - BUILD_DIR="$TRAVIS_BUILD_DIR/build"
     - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
     - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
+    - CI_TARGET=test
 
 jobs:
     include:
-        - stage: gcc builds
+        - stage: lint
           os: linux
-          compiler: gcc-5
-          env:
-            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
-        - stage: clang builds
-          os: linux
-          compiler: clang-4.0
-          env:
-            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+          env: CI_TARGET=lint
     fast_finish: true
 
 addons:
