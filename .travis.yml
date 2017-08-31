@@ -7,12 +7,14 @@ dist: trusty
 
 compiler:
     - g++
+    - clang
 env:
     global:
-    # http://docs.travis-ci.com/user/speeding-up-the-build/#Paralellizing-your-build-on-one-VM
     - MAKE_CMD="make -j2"
-    # Build directory.
     - BUILD_DIR="$TRAVIS_BUILD_DIR/build"
+    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+    - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
+
 jobs:
     include:
         - stage: gcc builds
@@ -20,13 +22,11 @@ jobs:
           compiler: gcc-5
           env:
             - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
-            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
         - stage: clang builds
           os: linux
           compiler: clang-4.0
           env:
             - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
-            - CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
     fast_finish: true
 
 addons:
