@@ -2,8 +2,10 @@
 bears = SpaceConsistencyBear
 files = **.cpp
 use_spaces = true
+non_interactive = True
 
 [linecount]
 bears = LineCountBear
 files = **.cpp
 max_lines_per_file = 1
+non_interactive = True
