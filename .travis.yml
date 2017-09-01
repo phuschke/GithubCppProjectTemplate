@@ -1,6 +1,8 @@
 language: cpp
 sudo: required
 dist: trusty
+services:
+  - docker
 
 os: linux
 
