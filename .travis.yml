@@ -32,8 +32,3 @@ addons:
       - clang-4.0
 
 script: sudo ci/script.sh
-
-cache:
-  apt: true
-  directories:
-    - "$HOME/.cache/pip"
